@@ -76,12 +76,12 @@ font-size:1em;
 border-radius: 10px;
 background: orange;
 &.transform{
-   
-    display:none;
+    
+    background:green;
+    display:hidden;
 }
 }
 `
-// background:green;
 
 
 export const StyledCountriesDiv = styled.div`
