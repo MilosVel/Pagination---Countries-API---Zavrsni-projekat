@@ -60,6 +60,7 @@ function App() {
         <Link to="/"><h1>HOME</h1></Link>
 
         <h1>Countries</h1>
+        <h1>Countries</h1>
 
         <Link to="/login"><h1>LOGIN</h1></Link>
       </StyledNav>

@@ -77,7 +77,7 @@ border-radius: 10px;
 background: orange;
 &.transform{
     
-    background:green;
+    background:blue;
     display:hidden;
 }
 }
