@@ -75,14 +75,13 @@ color: white;
 font-size:1em;
 border-radius: 10px;
 background: orange;
-
-
 &.transform{
    
-    display:hidden;
+    display:none;
 }
 }
 `
+// background:green;
 
 
 export const StyledCountriesDiv = styled.div`
