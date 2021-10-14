@@ -57,6 +57,7 @@ function App() {
   return (
     <Router>
       <StyledNav>
+        <h1>Naslov</h1>
         <Link to="/"><p>HOME</p></Link>
         <p>NESTO</p>
         <p>Jos nesto</p>
