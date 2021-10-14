@@ -58,6 +58,9 @@ function App() {
     <Router basename='/Pagination---Countries-API---Zavrsni-projekat'>
       <StyledNav>
         <Link to="/"><p>HOME</p></Link>
+
+        <h1>About</h1>
+
         <Link to="/login"><p>LOGIN</p></Link>
       </StyledNav>
 
