@@ -78,7 +78,7 @@ background: orange;
 
 
 &.transform{
-    background:green;
+   
     display:hidden;
 }
 }
