@@ -63,7 +63,7 @@ function App() {
 
 
       <Switch>
-        <Route exact path="/">
+        <Route exact path='/Pagination---Countries-API---Zavrsni-projekat'>
           <Home loggedIn={user} />
         </Route>
 
