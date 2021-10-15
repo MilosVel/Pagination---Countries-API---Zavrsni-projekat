@@ -63,6 +63,28 @@ button{color: white;
 
 
 
+export const StyledBtnForSingleCountry = styled.button`
+color: red;
+font-size:1em;
+border-radius: 10px;
+background: white;
+
+:hover{
+    background:lightblue;
+    }
+&.transform{
+    background: orange;
+    
+}
+}
+`
+// display: none;
+
+
+
+
+
+
 
 
 
@@ -77,7 +99,7 @@ border-radius: 10px;
 background: orange;
 &.transform{
     
-    background:blue;
+    background:red;
     display:hidden;
 }
 }

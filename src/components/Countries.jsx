@@ -4,12 +4,16 @@ import { StyledCountriesDiv } from "./styledComponents";
 import { StyledBtnPagination } from "./styledComponents";
 
 
-const Countreis = ({ countries, select, inputSearch, setOnPage, countriesAll, countriesSelect, change }) => {
+const Countreis = ({ countries, select, inputSearch, setOnPage, countriesAll, countriesSelect, change, currPage, setCurrPage }) => {
     // console.log(countriesSelect)
     let numPages = select ? Math.ceil(countriesSelect.length / 10) : Math.ceil(countriesAll.length / 10)
     // console.log(numPages);
     let [pages, setPages] = useState([])
-    const [currPage, setCurrPage] = useState(0)
+
+
+    // const [currPage, setCurrPage] = useState(0)
+
+
 
     useEffect(() => {
         let tmp = []

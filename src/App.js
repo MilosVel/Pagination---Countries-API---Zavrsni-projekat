@@ -9,6 +9,7 @@ import Countries from './components/Countries.jsx';
 import Search from './components/Search';
 import Select from './components/Select';
 import Sort from './components/Sort';
+import CountryRoute from './components/CountryRoute';
 
 import Home from './components/Home';
 import Login from './components/Login';
@@ -34,6 +35,10 @@ function App() {
 
 
   const [change, setChange] = useState(1)
+  const [reloadOnLogin, setReloadOnLogin] = useState(0)
+
+
+  const [currPage, setCurrPage] = useState(0)
 
 
 
@@ -43,14 +48,14 @@ function App() {
 
       // setChange(prev => prev + 1)
     })
-  }, [])
+  }, [reloadOnLogin])
 
   function fja(countries, onPage) {
 
     if (onPage.length === 0) {
-      return <Countries countries={countries.filter(country => country.name.common.includes(inputSearch))} select={select} inputSearch={inputSearch} setOnPage={setOnPage} countriesAll={countries} countriesSelect={countriesSelect} change={change} />
+      return <Countries countries={countries.filter(country => country.name.common.includes(inputSearch))} select={select} inputSearch={inputSearch} setOnPage={setOnPage} countriesAll={countries} countriesSelect={countriesSelect} change={change} currPage={currPage} setCurrPage={setCurrPage} />
     } else {
-      return <Countries countries={onPage.filter(country => country.name.common.includes(inputSearch))} select={select} inputSearch={inputSearch} setOnPage={setOnPage} countriesAll={countries} countriesSelect={countriesSelect} change={change} />
+      return <Countries countries={onPage.filter(country => country.name.common.includes(inputSearch))} select={select} inputSearch={inputSearch} setOnPage={setOnPage} countriesAll={countries} countriesSelect={countriesSelect} change={change} currPage={currPage} setCurrPage={setCurrPage} />
     }
   }
 
@@ -59,7 +64,9 @@ function App() {
       <StyledNav>
         <Link to="/"><h1>HOME</h1></Link>
 
+
         <h1>Countries</h1>
+
         <h1>Countries</h1>
 
         <Link to="/login"><h1>LOGIN</h1></Link>
@@ -71,11 +78,12 @@ function App() {
           <Home loggedIn={user} />
         </Route>
 
+
         <Route exact path="/countries">
           <Logout setUser={setUser} />
-          <Select countries={countries} setSelect={setSelect} setOnPage={setOnPage} setCountriesSelect={setCountriesSelect} setChange={setChange} />
+          <Select countries={countries} setSelect={setSelect} setOnPage={setOnPage} setCountriesSelect={setCountriesSelect} setChange={setChange} setCurrPage={setCurrPage} />
           <Search setInputSearch={setInputSearch} />
-          <Sort countries={countries} onPage={onPage} setOnPage={setOnPage} select={select} setSelect={setSelect} setChange={setChange} change={change} />
+          <Sort countries={countries} onPage={onPage} setOnPage={setOnPage} select={select} setSelect={setSelect} setChange={setChange} change={change} setCurrPage={setCurrPage} />
           {fja(countries, onPage)}
         </Route>
 
@@ -85,12 +93,21 @@ function App() {
         </Route>
 
         <Route exact path="/login">
-          <Login setUser={setUser} />
+          <Login setUser={setUser} setSelect={setSelect} setReloadOnLogin={setReloadOnLogin} />
         </Route>
 
         <Route exact path="/register">
           <Register setUser={setUser} />
         </Route>
+
+
+        <Route exact path="/countries/:countryName">
+          <CountryRoute countries={countries} />
+        </Route>
+
+
+
+
 
       </Switch>
     </Router >

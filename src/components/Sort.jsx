@@ -2,7 +2,7 @@
 
 
 import { useState, useEffect } from "react"
-const Sort = ({ countries, onPage, setOnPage, select, setChange, change }) => {
+const Sort = ({ countries, onPage, setOnPage, select, setChange, change, setCurrPage }) => {
 
     // let copyCountries = [...countries]
     const [copyCountries, setCopyCountries] = useState(onPage)
@@ -57,8 +57,6 @@ const Sort = ({ countries, onPage, setOnPage, select, setChange, change }) => {
 
                     setOnPage(copyCountries.sort(PopulationFrom9to1))
 
-
-
                 }
                 if (e.target.value === 'PopulationFrom1to9') {
 
@@ -70,9 +68,12 @@ const Sort = ({ countries, onPage, setOnPage, select, setChange, change }) => {
                 console.log(countries.filter(country => country.region.includes(select)))
 
                 e.target.value = '-1'
+
+                setCurrPage(0)
+
             }}>
 
-                <option default selected value='-1'> Choose option for sort</option>
+                <option value='-1'> Choose option for sort</option>
 
 
                 <option value='PopulationFrom9to1'>Sort By Population form Biggest to Lowest</option>

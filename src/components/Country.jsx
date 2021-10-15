@@ -1,13 +1,26 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getAllCountries } from "../Service";
-import { styledImg } from "./styledComponents";
+import { styledImg, StyledBtnForSingleCountry } from "./styledComponents";
+
+
+import { Link } from 'react-router-dom'
 
 const Country = ({ countries, country, single }) => {
 
     const [borders, setBorders] = useState([])
 
     const [indexPopulationAndArea, setindexPopulationAndArea] = useState(null)
+
+
+    let [stateForBtnRangByPopulation, setStateForBtnRangByPopulation] = useState(false)
+    let [stateForBtnBorders, setStateForBtnBorders] = useState(false)
+
+    // useEffect(() => {
+
+
+    // }, [])
+
 
 
 
@@ -26,8 +39,10 @@ const Country = ({ countries, country, single }) => {
 
 
         return <>
-            <p> In aspect of population {country.name.common} is number {indexPopulation + 1} in the world with {tmpPopulation[indexPopulation]} citizens </p>
-            <p>In ascpet of Area {country.name.common} is number {indexArea + 1} in the world with {tmpArea[indexArea]}    km^2</p>
+            <b>
+                <p> In aspect of population {country.name.common} is number {indexPopulation + 1} in the world with {tmpPopulation[indexPopulation]} citizens </p>
+                <p>In ascpet of Area {country.name.common} is number {indexArea + 1} in the world with {tmpArea[indexArea]}    km^2</p>
+            </b>
         </>
     }
 
@@ -37,63 +52,88 @@ const Country = ({ countries, country, single }) => {
         (
 
             <div >
-
-                <h2>{country.name.common}</h2>
-
-                <img src={country.flags.png} alt={`Flag of ${country.name.common}`} style={{ width: '150px' }} />
-
                 <h2>Basic information about {country.name.common}</h2>
-                <p>{country.name.common} has population of {country.population} citizens </p>
-                <a href={country.maps.googleMaps} > You can find {country.name.common} on google maps</a>
+
+                <p> <a href={country.maps.googleMaps} ><b>You can find {country.name.common} on google maps on this link </b> </a> </p>
+
+                {/* BTN for Borders */}
+
+                <div >
+                    <StyledBtnForSingleCountry className={stateForBtnBorders ? 'transform' : ''} onClick={() => {
+
+                        setStateForBtnBorders(!stateForBtnBorders)
+                        console.log(country.borders.length)
+                        console.log(country.borders)
+
+                        if (borders.length < country.borders.length) {
+                            country.borders.map(code => axios.get(`https://restcountries.com/v3.1/alpha/${code}`).then(res => {
+                                setBorders(prev => [...prev, res.data[0].name.common])
+                            }))
+                        }
+                    }}> {stateForBtnBorders ? `Hide ${country.name.common} 'Borders` : `Click here for ${country.name.common} 'Borders`} </StyledBtnForSingleCountry>
+
+
+                    {
+                        stateForBtnBorders ?
+
+                            borders.length !== 0 ?
+                                <>
+                                    <b>
+                                        <p> {country.name.common} has common border with {borders.length} countries:</p>
+
+                                        <ul>{borders.map((border, i) => <li key={Math.random() * 1000}>{i + 1}: {border}  </li>)} </ul>
+
+                                    </b>
+                                </>
+                                :
+                                <></>
+
+                            :
+                            <></>
+                    }
+                </div>
+
+
+                <b> <p>{country.name.common} has population of {country.population} citizens </p></b>
 
 
 
-                {/* <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d181140.1199788969!2d20.282513414404647!3d44.815159728413235!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x475a7aa3d7b53fbd%3A0x1db8645cf2177ee4!2z0JHQtdC-0LPRgNCw0LQ!5e0!3m2!1ssr!2srs!4v1633977360243!5m2!1ssr!2srs" width="600" height="450" style={{ border: '0' }} loading="lazy"></iframe> */}
+
+
+                {/* BTN Rang by Population */}
+                <div>
+
+                    <StyledBtnForSingleCountry className={stateForBtnRangByPopulation ? 'transform' : ''} onClick={() => {
+                        console.log(countries);
+                        setStateForBtnRangByPopulation(!stateForBtnRangByPopulation)
+
+                        setindexPopulationAndArea(rangByPopulationAndArea(countries, country))
+
+                    }}>{stateForBtnRangByPopulation ? 'Hide Rang By Population' : `Click to see Rang ${country.name.common} By Population`}</StyledBtnForSingleCountry>
+
+
+                    {stateForBtnRangByPopulation ? <div>    {indexPopulationAndArea}</div> : <></>}
+
+                </div>
 
 
 
-                <button onClick={() => {
-                    country.borders.map(code => axios.get(`https://restcountries.com/v3.1/alpha/${code}`).then(res => {
-                        setBorders(prev => [...prev, res.data[0].name.common])
-                    }))
-                }
-                }>Click here for borders</button>
-                {
-                    borders.length !== 0 ?
-                        <>
-                            <p> {country.name.common} has common border with {borders.length} countries:</p>
+                <p><b>Flag of {country.name.common}</b></p>
 
-                            <ul>{borders.map((border, i) => <li key={Math.random() * 1000}>{i + 1}: {border}  </li>)} </ul>
-
-                            {/* <p>These countries are: {borders.map(border => <span>{border} </span>)} </p> */}
-                        </>
-                        :
-                        <></>
-                }
-
-
-
-                <button onClick={() => {
-                    console.log(countries);
-                    setindexPopulationAndArea(rangByPopulationAndArea(countries, country))
-                }}>Click to se Rang By Population</button>
-
-
-                {
-                    indexPopulationAndArea ?
-                        <div>    {indexPopulationAndArea}</div>
-
-                        :
-                        <></>
-                }
-
+                <div>
+                    <img src={country.flags.png} alt={`Flag of ${country.name.common}`} style={{ width: '150px' }} />
+                </div>
 
             </div >
         )
         :
         (
             <div>
-                <h2>{country.name.common}</h2>
+                {/* <h2>{country.name.common}</h2> */}
+
+
+                <Link to={`/countries/${country.name.common}`}><h1>{country.name.common}</h1></Link>
+
 
                 <img src={country.flags.png} alt={`Flag of ${country.name.common}`} style={{ width: '500px', height: '250px ' }} />
 

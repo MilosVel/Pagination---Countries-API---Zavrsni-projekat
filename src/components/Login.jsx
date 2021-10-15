@@ -6,7 +6,7 @@ import { getAllUsers } from '../Service';
 import { StyledLoginandRegisterButton } from './styledComponents'
 import { LoginDiv } from './styledComponents'
 
-const Login = ({ setUser }) => {
+const Login = ({ setUser, setSelect, setReloadOnLogin }) => {
 
     const [users, setUsers] = useState([])
 
@@ -28,6 +28,9 @@ const Login = ({ setUser }) => {
             <form onSubmit={(e) => {
                 e.preventDefault()
 
+                setSelect('')
+                setReloadOnLogin(prev => prev + 1)
+
                 let user = users.find(el => el.username === username && el.password === password)
                 //console.log(user);
                 if (user) {
@@ -36,7 +39,6 @@ const Login = ({ setUser }) => {
                 } else {
                     console.log('neispravni podaci');
                 }
-
             }}>
                 <div>
                     <p>Username</p>
