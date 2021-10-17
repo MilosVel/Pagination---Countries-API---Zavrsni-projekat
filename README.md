@@ -3,6 +3,8 @@ COUNTRIES
 This project is final product of my education on IT BootCamp (JavaScript and React course).
 BIG THANKS TO IT BOOTCAMP
 
+You can see this project live on this link: http://MilosVel.github.io/Pagination---Countries-API---Zavrsni-projekat
+
 Description and Functionalities
 
 For this projekt I used API - https://restcountries.com/
@@ -13,15 +15,16 @@ Also, you can login and register to see all possibilities and functionalities on
 Tools and technologies:
 
 For this projekt I used followning tools and technologies:
-• JavaScript
-• React
-• React Router
-• axios
-• styled components
-• JSON server
-• Git
-• VSCode
-• NodeJS
+
+1. JavaScript
+2. React
+3. React Router
+4. axios
+5. styled components
+6. JSON server
+7. Git
+8. VSCode
+9. NodeJS
 
 Downloading and Instalation
 
