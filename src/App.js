@@ -18,10 +18,7 @@ import Logout from './components/Logout';
 
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
-
 import { StyledNav } from './components/styledComponents';
-
-
 
 function App() {
   const [user, setUser] = useState(null)
@@ -32,30 +29,27 @@ function App() {
   const [onPage, setOnPage] = useState([])
   const [countriesSelect, setCountriesSelect] = useState([])
 
-
-
   const [change, setChange] = useState(1)
   const [reloadOnLogin, setReloadOnLogin] = useState(0)
 
-
   const [currPage, setCurrPage] = useState(0)
-
 
 
   useEffect(() => {
     axios.get('https://restcountries.com/v3.1/all').then(res => {
       setCountries(res.data)
-
-      // setChange(prev => prev + 1)
     })
+    // }, [])
   }, [reloadOnLogin])
+
+
 
   function fja(countries, onPage) {
 
     if (onPage.length === 0) {
-      return <Countries countries={countries.filter(country => country.name.common.includes(inputSearch))} select={select} inputSearch={inputSearch} setOnPage={setOnPage} countriesAll={countries} countriesSelect={countriesSelect} change={change} currPage={currPage} setCurrPage={setCurrPage} />
+      return <Countries countries={countries.filter(country => country.name.common.includes(inputSearch))} select={select} inputSearch={inputSearch} setOnPage={setOnPage} countriesAll={countries} countriesSelect={countriesSelect} change={change} currPage={currPage} setCurrPage={setCurrPage} onPage={onPage} />
     } else {
-      return <Countries countries={onPage.filter(country => country.name.common.includes(inputSearch))} select={select} inputSearch={inputSearch} setOnPage={setOnPage} countriesAll={countries} countriesSelect={countriesSelect} change={change} currPage={currPage} setCurrPage={setCurrPage} />
+      return <Countries countries={onPage.filter(country => country.name.common.includes(inputSearch))} select={select} inputSearch={inputSearch} setOnPage={setOnPage} countriesAll={countries} countriesSelect={countriesSelect} change={change} currPage={currPage} setCurrPage={setCurrPage} onPage={onPage} />
     }
   }
 
@@ -64,26 +58,23 @@ function App() {
       <StyledNav>
         <Link to="/"><h1>HOME</h1></Link>
 
+        <h1>COUNTRIES</h1>
 
-        <h1>Countries</h1>
+        {user ? <Logout setUser={setUser} setOnPage={setOnPage} countries={countries} setSelect={setSelect} setCurrPage={setCurrPage} setInputSearch={setInputSearch} /> : <Link to="/login"><h1>LOGIN</h1></Link>}
 
-        <h1>Countries</h1>
-
-        <Link to="/login"><h1>LOGIN</h1></Link>
       </StyledNav>
 
 
       <Switch>
         <Route exact path='/'>
-          <Home loggedIn={user} />
+          <Home loggedIn={user} countries={countries} setOnPage={setOnPage} />
         </Route>
 
-
         <Route exact path="/countries">
-          <Logout setUser={setUser} />
+
           <Select countries={countries} setSelect={setSelect} setOnPage={setOnPage} setCountriesSelect={setCountriesSelect} setChange={setChange} setCurrPage={setCurrPage} />
           <Search setInputSearch={setInputSearch} />
-          <Sort countries={countries} onPage={onPage} setOnPage={setOnPage} select={select} setSelect={setSelect} setChange={setChange} change={change} setCurrPage={setCurrPage} />
+          <Sort countries={countries} onPage={onPage} setOnPage={setOnPage} select={select} setSelect={setSelect} setChange={setChange} change={change} setCurrPage={setCurrPage} user={user} />
           {fja(countries, onPage)}
         </Route>
 
@@ -93,21 +84,16 @@ function App() {
         </Route>
 
         <Route exact path="/login">
-          <Login setUser={setUser} setSelect={setSelect} setReloadOnLogin={setReloadOnLogin} />
+          <Login setUser={setUser} setSelect={setSelect} setReloadOnLogin={setReloadOnLogin} setCurrPage={setCurrPage} countries={countries} onPage={onPage} setOnPage={setOnPage} />
         </Route>
 
         <Route exact path="/register">
           <Register setUser={setUser} />
         </Route>
 
-
         <Route exact path="/countries/:countryName">
           <CountryRoute countries={countries} />
         </Route>
-
-
-
-
 
       </Switch>
     </Router >

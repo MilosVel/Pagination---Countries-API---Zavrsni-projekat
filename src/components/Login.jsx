@@ -4,9 +4,9 @@ import { getAllUsers } from '../Service';
 
 
 import { StyledLoginandRegisterButton } from './styledComponents'
-import { LoginDiv } from './styledComponents'
+import { LoginAndRegisterDiv } from './styledComponents'
 
-const Login = ({ setUser, setSelect, setReloadOnLogin }) => {
+const Login = ({ setUser, setSelect, setReloadOnLogin, setCurrPage, setOnPage, countries }) => {
 
     const [users, setUsers] = useState([])
 
@@ -17,22 +17,27 @@ const Login = ({ setUser, setSelect, setReloadOnLogin }) => {
     const history = useHistory()
 
     useEffect(() => {
+
         getAllUsers().then(res => {
-            //console.log(res.data)
             setUsers(res.data)
+            setReloadOnLogin(prev => prev + 1)
         })
+        setSelect('')
+
     }, [])
 
     return (
-        <LoginDiv>
+        <LoginAndRegisterDiv>
             <form onSubmit={(e) => {
                 e.preventDefault()
 
                 setSelect('')
                 setReloadOnLogin(prev => prev + 1)
+                setCurrPage(0)
+                setOnPage(countries)
 
                 let user = users.find(el => el.username === username && el.password === password)
-                //console.log(user);
+
                 if (user) {
                     setUser(user)
                     history.push("/countries")
@@ -52,16 +57,13 @@ const Login = ({ setUser, setSelect, setReloadOnLogin }) => {
 
                 <StyledLoginandRegisterButton type="submit" value="Login" />
 
-
-
-
                 <div>
-                    <Link to="/register">Registrujte se</Link>
+                    <Link to="/register">Create Your Account</Link>
                 </div>
 
             </form>
 
-        </LoginDiv>
+        </LoginAndRegisterDiv>
     );
 }
 

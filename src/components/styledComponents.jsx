@@ -13,34 +13,23 @@ background:green;
 }
 `
 
-
-export const LoginDiv = styled.div`
-display:flex;
-justify-content:center;
-align-items:flex-end;
-
+export const StyledLogoutButton = styled.button`
+color: white;
+font-size:1em;
+border-radius: 10px;
+background: red;
+margin:23px;
+:hover{
+background:green;
+}
 `
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+export const LoginAndRegisterDiv = styled.div`
+display:flex;
+justify-content:center;
+align-items:flex-end;
+`
 
 
 export const Logoutdiv = styled.div`
@@ -51,16 +40,14 @@ justify-content:flex-end;
     background:red;
     }
 button{color: white;
-    font-size:1em;
-    border-radius: 10px;
-    background: blue;
+    font-size:0,5em;
+    border-radius: 20px;
+    background: orange;
     :hover{
     background:red;
     }
 }
 `
-
-
 
 
 export const StyledBtnForSingleCountry = styled.button`
@@ -78,16 +65,6 @@ background: white;
 }
 }
 `
-// display: none;
-
-
-
-
-
-
-
-
-
 
 
 
@@ -107,6 +84,8 @@ background: orange;
 
 
 export const StyledCountriesDiv = styled.div`
+margin:2px;
+padding:20px;
 width:45rm;
 display: flex;
 flex-wrap: wrap;
@@ -124,11 +103,6 @@ display: flex;
 
 justify-content: space-around;
 `
-
-
-
-
-
 
 
 export const styledImg = styled.img`

@@ -16,13 +16,6 @@ const Country = ({ countries, country, single }) => {
     let [stateForBtnRangByPopulation, setStateForBtnRangByPopulation] = useState(false)
     let [stateForBtnBorders, setStateForBtnBorders] = useState(false)
 
-    // useEffect(() => {
-
-
-    // }, [])
-
-
-
 
     function rangByPopulationAndArea(countries, country) {
 
@@ -52,20 +45,19 @@ const Country = ({ countries, country, single }) => {
         (
 
             <div >
-                <h2>Basic information about {country.name.common}</h2>
+                <h2 >Basic information about {country.name.common}</h2>
 
-                <p> <a href={country.maps.googleMaps} ><b>You can find {country.name.common} on google maps on this link </b> </a> </p>
+                <a href={country.maps.googleMaps} ><h2 style={{ color: 'green' }}>You can find {country.name.common} on google maps on this link </h2> </a>
 
+                <b> <p>Capital city: {country.capital}</p></b>
                 {/* BTN for Borders */}
 
                 <div >
                     <StyledBtnForSingleCountry className={stateForBtnBorders ? 'transform' : ''} onClick={() => {
 
                         setStateForBtnBorders(!stateForBtnBorders)
-                        console.log(country.borders.length)
-                        console.log(country.borders)
 
-                        if (borders.length < country.borders.length) {
+                        if (borders.length < country.borders?.length) {
                             country.borders.map(code => axios.get(`https://restcountries.com/v3.1/alpha/${code}`).then(res => {
                                 setBorders(prev => [...prev, res.data[0].name.common])
                             }))
@@ -86,7 +78,7 @@ const Country = ({ countries, country, single }) => {
                                     </b>
                                 </>
                                 :
-                                <></>
+                                <><b><p> {country.name.common} has no borders</p></b></>
 
                             :
                             <></>
@@ -95,7 +87,6 @@ const Country = ({ countries, country, single }) => {
 
 
                 <b> <p>{country.name.common} has population of {country.population} citizens </p></b>
-
 
 
 
@@ -126,22 +117,17 @@ const Country = ({ countries, country, single }) => {
 
             </div >
         )
+
         :
+
         (
             <div>
-                {/* <h2>{country.name.common}</h2> */}
+                <h1>{country.name.common}</h1>
 
-
-                <Link to={`/countries/${country.name.common}`}><h1>{country.name.common}</h1></Link>
+                <Link to={`/countries/${country.name.common}`}><h2>Read more about {country.name.common}</h2></Link>
 
 
                 <img src={country.flags.png} alt={`Flag of ${country.name.common}`} style={{ width: '500px', height: '250px ' }} />
-
-
-                {/* <img src={country.flags.png} alt={`Flag of ${country.name.common}`} style={{ width: '150px' }} /> */}
-
-
-
 
             </div>
         )

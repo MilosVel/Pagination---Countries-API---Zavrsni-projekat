@@ -1,44 +1,32 @@
 import { useHistory } from "react-router";
 
 import { StyledLogoutButton, Logoutdiv } from './styledComponents'
-const Logout = ({ setUser }) => {
+
+import { StyledLoginandRegisterButton } from "./styledComponents";
+
+
+const Logout = ({ setUser, setOnPage, countries, setSelect, setCurrPage, setInputSearch }) => {
 
     const history = useHistory()
 
     return (
-        <Logoutdiv>
 
-            <button onClick={() => {
+        <div>
+            <StyledLogoutButton onClick={() => {
+
                 setUser(null)
-                history.push('/home')
-            }}>Logout</button>
+                setSelect('')
+                setOnPage(countries)
 
+                setCurrPage(0)
 
+                setInputSearch('')
 
+                console.log(countries)
+                history.push('/')
+            }}>LOGOUT</StyledLogoutButton>
 
-            {/* <button>1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>4</button>
-
-
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>4</button>
-
-
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>4</button>
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>4</button> */}
-
-
-        </Logoutdiv >
+        </div >
     );
 }
 
